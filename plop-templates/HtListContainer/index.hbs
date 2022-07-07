@@ -1,0 +1,78 @@
+{{#if template}}
+<template>
+  <div>
+    <{{ dashCase HtListImportClassName }}
+      ref="list"
+      :list="list"
+      :page="page"
+      :list-query="listQuery"
+      :is-loading="isLoading"
+      :selection-mode="selectionMode"
+      :get-list="getList"
+      :on-search="onSearch"
+      :on-clear="onClearList"
+      :max-table-height="maxTableHeight"
+      @selection-change="onSelectionChange"
+    />
+    <ht-dialog
+      :visible="dialog.visible"
+      :width="dialog.dialogWidth.default"
+      :fullscreen="dialog.fullscreen"
+      :destroy-on-close="true"
+      @close="dialog.visible=false"
+    />
+  </div>
+</template>
+{{/if}}
+
+{{#if script}}
+<script>
+import HtListContainer from '@/components/HtListContainer'
+import { DialogCtr } from '@/views/components/vars'
+import {{ HtListImportClassName }} from '@/views/components/{{ HtListFileName }}'
+import { getListApi } from '@/api/mock'
+
+export default {
+  name: '{{ properCase name }}',
+  components: { {{ HtListImportClassName }} },
+  extends: HtListContainer,
+  props: { },
+  data() {
+    return {
+      selected: false,
+      dialog: new DialogCtr(600, 200)
+    }
+  },
+  created() { },
+  mounted() {
+    this.getList()
+  },
+  methods: {
+    processListQuery() {
+    },
+    getList() {
+      this.beforeGetList()
+      getListApi()
+        .then(resp => { this.afterGetList(resp) })
+        .catch(err => { this.afterGetList(null, err) })
+    },
+    onItemsChange() {
+      this.$emit('items-change')
+    },
+    onSelectionChange(val) {
+      this.selected = !!(val && val.length > 0)
+    },
+    onClearList() {
+      this.$refs.list.onClearList()
+      this.onClear()
+    },
+  }
+}
+</script>
+{{/if}}
+
+{{#if style}}
+<style lang="scss" scoped>
+
+</style>
+{{/if}}

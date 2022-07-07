@@ -1,0 +1,45 @@
+{{#if template}}
+<template>
+  <div>
+    <ht-action-panel :on-search="onSearch" :on-clear="onClear">
+      <template slot="left">
+      </template>
+      <slot slot="right" name="actionBarRight" />
+    </ht-action-panel>
+    <ht-table ref="table" v-loading="isLoading" :data="list" :row-key="getRowKey" :max-height="maxTableHeight" @selection-change="onSelectionChange">
+      <ht-table-column-selection v-if="selectionMode" v-model="multipleSelection" :reserve-selection="true" fixed="left" />
+      <ht-table-column-index fixed="left" />
+      <slot name="operationColumns" />
+    </ht-table>
+    <ht-pagination :total="page.total" :page.sync="listQuery.page" :limit.sync="listQuery.perPage" @pagination="getList"/>
+  </div>
+</template>
+{{/if}}
+
+{{#if script}}
+<script>
+import HtList from '@/components/HtList'
+export default {
+  name: '{{ properCase name }}',
+  components: { },
+  extends: HtList,
+  props: { },
+  data() {
+    return {}
+  },
+  created() { },
+  mounted() { },
+  methods: {
+    getRowKey() {
+      return ''
+    }
+  }
+}
+</script>
+{{/if}}
+
+{{#if style}}
+<style lang="scss" scoped>
+
+</style>
+{{/if}}

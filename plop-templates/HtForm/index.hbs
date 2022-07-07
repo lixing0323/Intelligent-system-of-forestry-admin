@@ -1,0 +1,46 @@
+{{#if template}}
+<template>
+  <ht-form ref="form" v-loading="isLoading" :model="form" label-width="115px">
+    <el-form-item label="表单" prop="name">
+      <el-input v-model="form.name"/>
+    </el-form-item>
+    <ht-form-submit :is-loading="isLoading" @on-save-clicked="onSubmit('form')" />
+  </ht-form>
+</template>
+{{/if}}
+
+{{#if script}}
+<script>
+import HtFormContainer from '@/components/HtFormContainer'
+export default {
+  name: '{{ properCase name }}',
+  components: { },
+  extends: HtFormContainer,
+  props: {
+    createFunc: { type: Function, default: undefined },
+    updateFunc: { type: Function, default: undefined },
+    businessName: { type: String, default: '名称' }
+  },
+  data() {
+    return {
+      form: {
+        name: undefined
+      }
+    }
+  },
+  created() { },
+  mounted() { },
+  methods: {
+    initForm(data = null, context = null) {
+      this._initForm(data, context)
+    },
+  }
+}
+</script>
+{{/if}}
+
+{{#if style}}
+<style lang="scss" scoped>
+
+</style>
+{{/if}}
