@@ -85,7 +85,7 @@ export default {
   display: flex;
   flex-wrap: nowrap;
   .item {
-    width: 200px;
+    width: 150px;
   }
   .middle {
     width: 100%;

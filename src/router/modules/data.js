@@ -14,23 +14,30 @@ const dataRouter = {
       meta: { title: '数据采集' }
     },
     {
-      path: ':id/one',
-      component: () => import('@/views/data/one'),
-      name: 'DataManagementOne',
+      path: 'create',
+      component: () => import('@/views/data/create'),
+      name: 'DataManagementCreate',
       meta: { title: '基本信息', activeMenu: '/platform/data/list' },
       hidden: true
     },
     {
-      path: ':id/two',
-      component: () => import('@/views/data/two'),
-      name: 'DataManagementTwo',
+      path: ':id/base',
+      component: () => import('@/views/data/base'),
+      name: 'DataManagementBase',
+      meta: { title: '基本信息', activeMenu: '/platform/data/list' },
+      hidden: true
+    },
+    {
+      path: ':id/land',
+      component: () => import('@/views/data/land'),
+      name: 'DataManagementLand',
       meta: { title: '地貌和土壤信息', activeMenu: '/platform/data/list' },
       hidden: true
     },
     {
-      path: ':id/three',
-      component: () => import('@/views/data/three'),
-      name: 'DataManagementThree',
+      path: ':id/type',
+      component: () => import('@/views/data/type'),
+      name: 'DataManagementType',
       meta: { title: '类别详情', activeMenu: '/platform/data/list' },
       hidden: true
     }

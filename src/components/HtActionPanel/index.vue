@@ -66,7 +66,6 @@ export default {
     .el-input, .el-select, .el-date-picker {
       display: inline-block;
       vertical-align: middle;
-      background-color: #1B232C !important;
       width: 150px;
     }
 

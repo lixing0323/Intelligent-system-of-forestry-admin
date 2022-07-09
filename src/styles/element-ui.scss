@@ -93,17 +93,6 @@
   }
 }
 
-.el-table {
-  border: 1px solid #1B232C !important;
-  background-color: #2E3547 !important;
-}
-.el-table::before {
-  height: 0 !important;
-}
-.el-table::after {
-  width: 0 !important;
-}
-
 .el-table .cell {
   .el-form-item--mini.el-form-item {
     min-height: 36px;
@@ -173,7 +162,7 @@ li.el-timeline-item{
 
     .item {
       text-align: left;
-      width: 340px;
+      width: 360px;
       .select {
         width: 100%;
       }
@@ -266,4 +255,22 @@ li.el-timeline-item{
 
 .business-rectangle-card.el-card {
   border: 1px solid #191E2C !important;
+}
+
+.el-breadcrumb__item:last-child .el-breadcrumb__inner a {
+  color: #FFFFFF;
+}
+
+.el-step__head.is-success {
+  color: #000000;
+}
+.el-step__title.is-success {
+  color: #000000;
+}
+
+.el-step__head.is-process {
+  color: $--color-font;
+}
+.el-step__title.is-process {
+  color: $--color-font;
 }

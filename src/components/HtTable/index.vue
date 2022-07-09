@@ -7,19 +7,7 @@ export default {
     headerCellStyle: {
       type: [Object, Function],
       default: function() {
-        return { color: '#2A9A30', 'background-color': '#1B232C', 'border': '1px solid #384251' }
-      }
-    },
-    rowStyle: {
-      type: [Object, Function],
-      default: function() {
-        return { color: '#FFF', 'background-color': '#1B232C', 'border': '1px solid #384251' }
-      }
-    },
-    cellStyle: {
-      type: [Object, Function],
-      default: function() {
-        return { color: '#FFF', 'background-color': '#1B232C', 'border': '1px solid #384251' }
+        return { color: '#FFF', 'background-color': '#2A9A30' }
       }
     },
     fit: {

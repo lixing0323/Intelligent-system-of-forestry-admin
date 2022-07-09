@@ -41,41 +41,31 @@
 
           <div>
             <el-form-item label="植被类型：" prop="plot" class="item">
-              <el-select v-model="form.plot" class="select" filterable placeholder="请选择植被类型">
-                <el-option v-for="(item, index) in plotOptions" :key="index" :label="item.name" :value="item.code" />
-              </el-select>
+              <el-input v-model="form.plot" placeholder="请填写植被类型" class="input" />
             </el-form-item>
           </div>
 
           <div>
             <el-form-item label="林木权属：" prop="plot" class="item">
-              <el-select v-model="form.plot" class="select" filterable placeholder="请选择林木权属">
-                <el-option v-for="(item, index) in plotOptions" :key="index" :label="item.name" :value="item.code" />
-              </el-select>
+              <el-input v-model="form.plot" placeholder="请填写林木权属" class="input" />
             </el-form-item>
           </div>
 
           <div>
             <el-form-item label="林种：" prop="plot" class="item">
-              <el-select v-model="form.plot" class="select" filterable placeholder="请选择林种">
-                <el-option v-for="(item, index) in plotOptions" :key="index" :label="item.name" :value="item.code" />
-              </el-select>
+              <el-input v-model="form.plot" placeholder="请填写林种" class="input" />
             </el-form-item>
           </div>
 
           <div>
             <el-form-item label="起源：" prop="plot" class="item">
-              <el-select v-model="form.plot" class="select" filterable placeholder="请选择起源">
-                <el-option v-for="(item, index) in plotOptions" :key="index" :label="item.name" :value="item.code" />
-              </el-select>
+              <el-input v-model="form.plot" placeholder="请填写起源" class="input" />
             </el-form-item>
           </div>
 
           <div>
             <el-form-item label="优势树种：" prop="plot" class="item">
-              <el-select v-model="form.plot" class="select" filterable placeholder="请选择优势树种">
-                <el-option v-for="(item, index) in plotOptions" :key="index" :label="item.name" :value="item.code" />
-              </el-select>
+              <el-input v-model="form.plot" placeholder="请填写优势树种" class="input" />
             </el-form-item>
           </div>
 
@@ -87,17 +77,13 @@
 
           <div>
             <el-form-item label="龄组：" prop="plot" class="item">
-              <el-select v-model="form.plot" class="select" filterable placeholder="请选择龄组">
-                <el-option v-for="(item, index) in plotOptions" :key="index" :label="item.name" :value="item.code" />
-              </el-select>
+              <el-input v-model="form.plot" placeholder="请填写龄组" class="input" />
             </el-form-item>
           </div>
 
           <div>
             <el-form-item label="径组：" prop="plot" class="item">
-              <el-select v-model="form.plot" class="select" filterable placeholder="请选择径组">
-                <el-option v-for="(item, index) in plotOptions" :key="index" :label="item.name" :value="item.code" />
-              </el-select>
+              <el-input v-model="form.plot" placeholder="请填写径组" class="input" />
             </el-form-item>
           </div>
 
@@ -121,9 +107,7 @@
 
           <div>
             <el-form-item label="森林群落结构：" prop="plot" class="item">
-              <el-select v-model="form.plot" class="select" filterable placeholder="请选择森林群落结构">
-                <el-option v-for="(item, index) in plotOptions" :key="index" :label="item.name" :value="item.code" />
-              </el-select>
+              <el-input v-model="form.plot" placeholder="请填写森林群落结构" class="input" />
             </el-form-item>
           </div>
 
@@ -153,9 +137,7 @@
 
           <div>
             <el-form-item label="天然更新等级：" prop="plot" class="item">
-              <el-select v-model="form.plot" class="select" filterable placeholder="请选择天然更新等级">
-                <el-option v-for="(item, index) in plotOptions" :key="index" :label="item.name" :value="item.code" />
-              </el-select>
+              <el-input v-model="form.plot" placeholder="请填写天然更新等级" class="input" />
             </el-form-item>
           </div>
 
@@ -199,6 +181,7 @@
 import ThreeStep from './components/step'
 
 export default {
+  name: 'DataManagementType',
   components: {
     ThreeStep
   },
@@ -224,7 +207,7 @@ export default {
   methods: {
     // 上一步
     gotoPrevious() {
-      this.$router.push({ name: 'DataManagementTwo', params: { id: this.id }})
+      this.$router.push({ name: 'DataManagementLand', params: { id: this.id }})
     }
   }
 }
