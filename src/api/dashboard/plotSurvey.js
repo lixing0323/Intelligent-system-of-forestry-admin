@@ -14,6 +14,10 @@ export function updatePlotSurveyItem(id, data) {
   return request({ url: `${PLOT_SURVEY}/${id}`, method: 'put', data: data })
 }
 
+export function getPlotSurveyItem(id) {
+  return request({ url: `${PLOT_SURVEY}/${id}`, method: 'get' })
+}
+
 export function deletePlotSurveyItem(id) {
   return request({ url: `${PLOT_SURVEY}/${id}`, method: 'delete' })
 }

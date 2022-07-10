@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading="divLoading">
     <one-step :step.sync="step" :next-bt-loading="nextBtLoading" :save-bt-loading="saveBtLoading" @next="clickNextBt()" @save="clickSaveBt()">
       <el-form ref="form" :model="form" :rules="rules" label-width="140px" label-position="right">
         <div class="form">
@@ -76,8 +76,8 @@
 <script>
 // 第一步：基本信息
 import OneStep from './components/step'
-import { CARBON_TYPE_OPTIONS, PLOT_TYPE_OPTIONS } from './var.js'
-import { createPlotSurvey, updatePlotSurveyItem } from '@/api/dashboard/plotSurvey.js'
+import { CARBON_TYPE_OPTIONS, PLOT_TYPE_OPTIONS, dataCopyToForm, getJsonData } from './var.js'
+import { createPlotSurvey, getPlotSurveyItem, updatePlotSurveyItem } from '@/api/dashboard/plotSurvey.js'
 import { isValidCellPhone } from '@/utils/validate'
 import { parseTime } from '@/utils'
 
@@ -99,6 +99,7 @@ export default {
     return {
       step: 0,
       id: undefined,
+      divLoading: false,
       form: {
         protection_zone: '',
         land_number: '',
@@ -142,7 +143,8 @@ export default {
       plotTypeOptions: PLOT_TYPE_OPTIONS,
       carbonTypeOptions: CARBON_TYPE_OPTIONS,
       nextBtLoading: false,
-      saveBtLoading: false
+      saveBtLoading: false,
+      content: {}
     }
   },
   computed: {
@@ -152,11 +154,18 @@ export default {
   },
   created() {
     this.id = this.$route.params.id
-    this.setItemData()
+    this.getItemData()
   },
   methods: {
-    setItemData() {
-      if (!this.isEdit) {
+    getItemData() {
+      if (this.isEdit) {
+        this.divLoading = true
+        getPlotSurveyItem(this.id).then(res => {
+          this.content = JSON.parse(res.content)
+          dataCopyToForm(this.form, res)
+          this.divLoading = false
+        }).catch(() => (this.divLoading = false))
+      } else {
         this.form.record_date = parseTime(Date.now(), '{y}-{m}-{d}')
       }
     },
@@ -181,7 +190,7 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.saveBtLoading = true
-          updatePlotSurveyItem(this.id, this.getJsonData()).then(res => {
+          updatePlotSurveyItem(this.id, getJsonData(this.form, this.content)).then(res => {
             this.saveBtLoading = false
 
             if (next) {
@@ -195,9 +204,8 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.nextBtLoading = true
-          createPlotSurvey(this.getJsonData()).then(res => {
+          createPlotSurvey(getJsonData(this.form)).then(res => {
             this.nextBtLoading = false
-            console.log('createPlotSurvey', res)
 
             if (next) {
               this.gotoNext(res)
@@ -217,27 +225,6 @@ export default {
     gotoNext(row) {
       console.log('gotoNext', row)
       this.$router.push({ name: 'DataManagementLand', params: { id: row.id }})
-    },
-    getJsonData() {
-      return {
-        plot_survey: {
-          recorder_mobile: this.form.recorder_mobile,
-          recorder_name: this.form.recorder_name,
-          record_date: this.form.record_date,
-          forest_property: this.form.forest_property,
-          protection_zone: this.form.protection_zone,
-          land_number: this.form.land_number,
-          content: JSON.stringify(
-            {
-              gps_x: this.form.gps_x,
-              gps_y: this.form.gps_y,
-              carbon_type: this.form.carbon_type,
-              plot_type: this.form.plot_type,
-              comment: this.form.comment
-            }
-          )
-        }
-      }
     }
   }
 }
