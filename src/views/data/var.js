@@ -50,6 +50,7 @@ export function dataCopyToForm(form, data) {
 export function getJsonData(base = {}, content = {}) {
   return {
     plot_survey: {
+      name: base.name,
       recorder_mobile: base.recorder_mobile,
       recorder_name: base.recorder_name,
       record_date: base.record_date,

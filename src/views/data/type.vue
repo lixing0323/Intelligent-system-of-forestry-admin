@@ -271,7 +271,10 @@ export default {
             this.setLoadingBt(submit, false)
 
             if (submit) {
+              this.$message({ message: `数据提交成功！`, duration: 1500, type: 'success' })
               this.gotoList()
+            } else {
+              this.$message({ message: `数据保存成功！`, duration: 1500, type: 'success' })
             }
           }).catch(() => (this.setLoadingBt(submit, false)))
         }

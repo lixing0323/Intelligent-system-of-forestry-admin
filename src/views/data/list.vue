@@ -2,8 +2,9 @@
   <el-card>
     <ht-action-panel>
       <template slot="left">
-        <el-input v-model="listQuery.protection_zone" placeholder="县、局、保护区" class="filter-item" @keyup.enter.native="onSearch" />
+        <el-input v-model="listQuery.name" placeholder="样地名" class="filter-item" @keyup.enter.native="onSearch" />
         <el-input v-model="listQuery.land_number" placeholder="样地号" class="filter-item" @keyup.enter.native="onSearch" />
+        <el-input v-model="listQuery.protection_zone" placeholder="县、局、保护区" class="filter-item" @keyup.enter.native="onSearch" />
         <el-input v-model="listQuery.forest_property" placeholder="土地权属" class="filter-item" @keyup.enter.native="onSearch" />
         <el-date-picker v-model="listQuery.record_date" type="date" :clearable="false" placement="bottom-start" placeholder="请选择调查日期" value-format="yyyy-MM-dd" />
         <el-input v-model="listQuery.recorder_name" placeholder="调查人姓名" class="filter-item" @keyup.enter.native="onSearch" />
@@ -17,8 +18,9 @@
     </ht-action-panel>
     <ht-table ref="table" v-loading="isLoading" :data="list" row-key="id">
       <ht-table-column type="index" width="55" label="序号" />
-      <ht-table-column label="县、局、保护区" prop="protection_zone" min-width="100" />
+      <ht-table-column label="样地名" prop="name" min-width="100" />
       <ht-table-column label="样地号" prop="land_number" min-width="100" />
+      <ht-table-column label="县、局、保护区" prop="protection_zone" min-width="100" />
       <ht-table-column label="土地权属" prop="forest_property" min-width="100" />
       <ht-table-column label="调查日期" prop="record_date" min-width="100" />
       <ht-table-column label="调查人姓名" prop="recorder_name" min-width="120" />

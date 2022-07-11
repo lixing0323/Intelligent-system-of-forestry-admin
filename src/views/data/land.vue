@@ -207,6 +207,7 @@ export default {
           Object.assign(this.content, this.form)
           updatePlotSurveyItem(this.id, getJsonData(this.base, this.content)).then(res => {
             this.setLoadingBt(next, false)
+            this.$message({ message: `数据保存成功！`, duration: 1500, type: 'success' })
 
             if (next) {
               this.gotoNext(res)

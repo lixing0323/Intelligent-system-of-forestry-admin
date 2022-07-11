@@ -4,14 +4,20 @@
       <el-form ref="form" :model="form" :rules="rules" label-width="140px" label-position="right">
         <div class="form">
           <div>
-            <el-form-item label="县、局、保护区：" prop="protection_zone" class="item">
-              <el-input v-model="form.protection_zone" placeholder="请填写县、局、保护区" class="input" />
+            <el-form-item label="样地名：" prop="name" class="item">
+              <el-input v-model="form.name" placeholder="请填写名称" class="input" />
             </el-form-item>
           </div>
 
           <div>
             <el-form-item label="样地号：" prop="land_number" class="item">
               <el-input v-model="form.land_number" placeholder="请填写样地号" class="input" />
+            </el-form-item>
+          </div>
+
+          <div>
+            <el-form-item label="县、局、保护区：" prop="protection_zone" class="item">
+              <el-input v-model="form.protection_zone" placeholder="请填写县、局、保护区" class="input" />
             </el-form-item>
           </div>
 
@@ -101,6 +107,7 @@ export default {
       id: undefined,
       divLoading: false,
       form: {
+        name: '',
         protection_zone: '',
         land_number: '',
         plot_type: '',
@@ -114,6 +121,9 @@ export default {
         comment: ''
       },
       rules: {
+        name: [
+          { required: true, message: '请填写名称', trigger: 'blur' }
+        ],
         protection_zone: [
           { required: true, message: '请填写县，市，保护区', trigger: 'blur' }
         ],
@@ -190,8 +200,10 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.saveBtLoading = true
-          updatePlotSurveyItem(this.id, getJsonData(this.form, this.content)).then(res => {
+          const content = { ...this.content, ...this.form }
+          updatePlotSurveyItem(this.id, getJsonData(this.form, content)).then(res => {
             this.saveBtLoading = false
+            this.$message({ message: `数据保存成功！`, duration: 1500, type: 'success' })
 
             if (next) {
               this.gotoNext(res)
@@ -204,8 +216,10 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.nextBtLoading = true
-          createPlotSurvey(getJsonData(this.form)).then(res => {
+          const content = Object.assign({}, this.form)
+          createPlotSurvey(getJsonData(this.form, content)).then(res => {
             this.nextBtLoading = false
+            this.$message({ message: `数据新建成功！`, duration: 1500, type: 'success' })
 
             if (next) {
               this.gotoNext(res)
@@ -218,12 +232,10 @@ export default {
     },
     // 从新建模式到编辑模式
     gotoEdit(row) {
-      console.log('gotoEdit', row)
       this.$router.replace({ name: 'DataManagementBase', params: { id: row.id }})
     },
     // 下一步
     gotoNext(row) {
-      console.log('gotoNext', row)
       this.$router.push({ name: 'DataManagementLand', params: { id: row.id }})
     }
   }
